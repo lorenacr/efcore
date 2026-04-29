@@ -36,6 +36,7 @@ namespace TestNamespace
                 complexPropertyCount: 1,
                 navigationCount: 1,
                 foreignKeyCount: 1,
+                namedIndexCount: 1,
                 keyCount: 1);
 
             var id = runtimeEntityType.AddProperty(
@@ -918,6 +919,10 @@ namespace TestNamespace
             var key = runtimeEntityType.AddKey(
                 new[] { id });
             runtimeEntityType.SetPrimaryKey(key);
+
+            var iX_PrincipalBase_Id_Owned_Number = runtimeEntityType.AddIndex(
+                new[] { id, runtimeEntityType.FindComplexProperty("Owned").ComplexType.FindProperty("Number") },
+                name: "IX_PrincipalBase_Id_Owned_Number");
 
             return runtimeEntityType;
         }
